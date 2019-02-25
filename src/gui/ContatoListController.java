@@ -36,6 +36,9 @@ public class ContatoListController implements Initializable{
 	@FXML
 	private TableColumn<Contato, Integer> tableColumnNumero;
 	
+	@FXML
+	private TableColumn<Contato, Integer> tableColumnId;
+	
 	public void newButtonAction() {
 		System.out.println("newButton");
 	}
@@ -46,6 +49,8 @@ public class ContatoListController implements Initializable{
 	}
 
 	private void initializeNodes() {
+		
+		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
 		tableColumnNumero.setCellValueFactory(new PropertyValueFactory<>("numero"));
 		
@@ -62,7 +67,7 @@ public class ContatoListController implements Initializable{
 			throw new IllegalStateException();
 		}
 	
-		List<Contato> list = service.findAlll();
+		List<Contato> list = service.findAll();
  		obsList = FXCollections.observableArrayList(list);
  		tableViewContato.setItems(obsList);
 	}

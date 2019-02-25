@@ -23,4 +23,12 @@ public class ContatoService {
 		}
 	}
 	
+	public void remove(Contato contato) {
+		dao.deleteById(contato.getId());
+	}
+	
+	public void update(Contato contato) {
+		dao.update(contato);
+	}
+	
 }

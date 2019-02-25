@@ -24,9 +24,10 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entities.Contato;
+import model.listeners.DataChangeListener;
 import model.services.ContatoService;
 
-public class ContatoListController implements Initializable{
+public class ContatoListController implements Initializable, DataChangeListener{
 
 	private ContatoService service;
  	
@@ -61,7 +62,11 @@ public class ContatoListController implements Initializable{
 			Pane pane = loader.load();
 			ContatoFormController controller = loader.getController();
 			
+			controller.setService(service);
+			
 			controller.setContato(contato);
+			
+			controller.subscribeDataChangedListener(this);
 			
 			controller.updateFormData();
 			
@@ -108,6 +113,11 @@ public class ContatoListController implements Initializable{
 		List<Contato> list = service.findAll();
  		obsList = FXCollections.observableArrayList(list);
  		tableViewContato.setItems(obsList);
+	}
+
+	@Override
+	public void onDataChanged() {
+		updateTableView();
 	}
 
 }

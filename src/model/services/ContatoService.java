@@ -16,7 +16,11 @@ public class ContatoService {
 	}
 	
 	public void insert(Contato contato) {
-		dao.insert(contato);
+		if(contato.getId() == null) {
+			dao.insert(contato);
+		}else {
+			dao.update(contato);
+		}
 	}
 	
 }

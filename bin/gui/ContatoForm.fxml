@@ -11,8 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="148.0" prefWidth="336.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="148.0" prefWidth="336.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ContatoFormController">
    <children>
       <GridPane layoutY="9.0" prefHeight="140.0" prefWidth="333.0">
         <columnConstraints>
@@ -29,12 +28,12 @@
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
                <children>
-                  <Button mnemonicParsing="false" text="Save">
+                  <Button fx:id="btnSave" mnemonicParsing="false" onAction="#btnSaveAction" text="Save">
                      <HBox.margin>
                         <Insets left="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" text="Cancel">
+                  <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#btnCancelAction" text="Cancel">
                      <HBox.margin>
                         <Insets left="5.0" />
                      </HBox.margin>
@@ -59,10 +58,10 @@
                   <Insets left="30.0" />
                </GridPane.margin>
             </Label>
-            <TextField GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <TextField fx:id="tfId" editable="false" GridPane.columnIndex="1" />
+            <TextField fx:id="tfNome" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="tfNumero" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="lblError" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <font>
                   <Font size="14.0" />
                </font>

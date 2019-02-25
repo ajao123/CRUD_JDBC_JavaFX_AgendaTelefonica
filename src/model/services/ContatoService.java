@@ -15,4 +15,8 @@ public class ContatoService {
 		return dao.findAll();
 	}
 	
+	public void insert(Contato contato) {
+		dao.insert(contato);
+	}
+	
 }

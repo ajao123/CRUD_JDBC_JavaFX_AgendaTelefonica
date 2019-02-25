@@ -15,6 +15,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
+import model.services.ContatoService;
 
 public class MainViewController implements Initializable{
 
@@ -25,7 +26,7 @@ public class MainViewController implements Initializable{
 	private MenuItem MenuItemAbout;
 	
 	public void onMenuItemActionContato() {
-		loadView("/gui/ContatoView.fxml");
+		loadView2("/gui/ContatoListView.fxml");
 	}
 	
 	public void onMenuItemActionAbout() {
@@ -49,6 +50,35 @@ public class MainViewController implements Initializable{
 			
 			mainVBox.getChildren().add(mainMenu);
 			mainVBox.getChildren().addAll(newVBox.getChildren());
+			
+		} catch (IOException e) {
+			
+			Alerts.showAlert("IOException", "Error Loading View", e.getMessage(), AlertType.ERROR);
+		}
+	}
+	
+public void loadView2(String absoluteName) {
+		
+		try {
+			
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
+			VBox newVBox = loader.load();
+		
+			Scene mainScene = Main.getMainScene();
+			
+			VBox mainVBox = (VBox) ((ScrollPane) mainScene.getRoot()).getContent();	
+			
+			Node mainMenu = mainVBox.getChildren().get(0);
+			mainVBox.getChildren().clear();
+			
+			mainVBox.getChildren().add(mainMenu);
+			mainVBox.getChildren().addAll(newVBox.getChildren());
+			
+			ContatoListController controller = loader.getController();
+			controller.setService(new ContatoService());
+			controller.updateTableView();
+			
+		
 			
 		} catch (IOException e) {
 			

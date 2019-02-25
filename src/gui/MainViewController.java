@@ -3,6 +3,7 @@ package gui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 import application.Main;
 import gui.util.Alerts;
@@ -26,14 +27,17 @@ public class MainViewController implements Initializable{
 	private MenuItem MenuItemAbout;
 	
 	public void onMenuItemActionContato() {
-		loadView2("/gui/ContatoListView.fxml");
+		loadView("/gui/ContatoListView.fxml", (ContatoListController controller) -> {
+			controller.setService(new ContatoService());
+			controller.updateTableView();
+		});
 	}
 	
 	public void onMenuItemActionAbout() {
-		loadView("/gui/AboutView.fxml");
+		loadView("/gui/AboutView.fxml", x -> {});
 	}
 	
-	public void loadView(String absoluteName) {
+	private synchronized <T> void loadView(String absoluteName, Consumer<T> consumer) {
 		
 		try {
 			
@@ -51,40 +55,14 @@ public class MainViewController implements Initializable{
 			mainVBox.getChildren().add(mainMenu);
 			mainVBox.getChildren().addAll(newVBox.getChildren());
 			
+			consumer.accept(loader.getController());
+			
 		} catch (IOException e) {
 			
 			Alerts.showAlert("IOException", "Error Loading View", e.getMessage(), AlertType.ERROR);
 		}
 	}
 	
-public void loadView2(String absoluteName) {
-		
-		try {
-			
-			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
-			VBox newVBox = loader.load();
-		
-			Scene mainScene = Main.getMainScene();
-			
-			VBox mainVBox = (VBox) ((ScrollPane) mainScene.getRoot()).getContent();	
-			
-			Node mainMenu = mainVBox.getChildren().get(0);
-			mainVBox.getChildren().clear();
-			
-			mainVBox.getChildren().add(mainMenu);
-			mainVBox.getChildren().addAll(newVBox.getChildren());
-			
-			ContatoListController controller = loader.getController();
-			controller.setService(new ContatoService());
-			controller.updateTableView();
-			
-		
-			
-		} catch (IOException e) {
-			
-			Alerts.showAlert("IOException", "Error Loading View", e.getMessage(), AlertType.ERROR);
-		}
-	}
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {

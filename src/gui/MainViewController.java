@@ -25,7 +25,7 @@ public class MainViewController implements Initializable{
 	private MenuItem MenuItemAbout;
 	
 	public void onMenuItemActionContato() {
-		System.out.println("MenuItemContato");
+		loadView("/gui/ContatoView.fxml");
 	}
 	
 	public void onMenuItemActionAbout() {
